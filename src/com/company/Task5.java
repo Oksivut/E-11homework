@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.*;
 
 public class Task5 {
@@ -45,17 +42,19 @@ public class Task5 {
     public static class Service implements Callable<List<String>> {
 
         private List<Queue<String>> listOfQueues;
-        private List<String> listResult = new ArrayList<>();
+        private List<String> listResult;
 
 
         public Service(List<Queue<String>> listOfQueues) {
             this.listOfQueues = listOfQueues;
+            listResult= Collections.synchronizedList (new ArrayList<>());
         }
 
         @Override
         public List<String> call() throws InterruptedException {
             Random random = new Random();
             int numberOfQueue;
+
 
             while (!allQueuesEmpty()) {
 
